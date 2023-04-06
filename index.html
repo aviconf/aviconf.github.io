@@ -45,7 +45,7 @@ const login = async () => {
             document.getElementById("status").innerHTML = "Connection failed!";
         }
         try {   
-            await sdk.login(document.getElementById("username").value+"conftest.avicus.n4.voximplant.com",document.getElementById("password").value);
+            await sdk.login(document.getElementById("username").value+"@conftest.avicus.n4.voximplant.com",document.getElementById("password").value);
             document.getElementById("status").innerHTML = "Logged in!";
         } catch (e) {
             document.getElementById("status").innerHTML = "Login failure!";
