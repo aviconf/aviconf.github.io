@@ -10,6 +10,7 @@
     </head>
 <body>
     <p id="status">Please enter the username and password.</p>
+    <button onclick="conf.hangup()" id="hangupbutton" style="display: none;">Leave</button>
     <div id="loginform" style="display: block;">
         <input id="username" type="text">
         <input id="password" type="password">
@@ -50,7 +51,7 @@ const login = async () => {
             await sdk.login(document.getElementById("username").value+"@conftest.avicus.n4.voximplant.com",document.getElementById("password").value);
             document.getElementById("status").innerHTML = "Logged in! Starting the conference...";
             document.getElementById("loginform").style.display = "none";
-            call();
+            startconf();
         } catch (e) {
             document.getElementById("status").innerHTML = "Login failure!";
         }
@@ -59,7 +60,9 @@ const login = async () => {
     }
 };
 
-const call = () => {
+let conf;
+
+const startconf = () => {
 
     // prepare settings
     const callSettings = {
@@ -71,16 +74,18 @@ const call = () => {
         },
     };
     // pass these settings to the call() method
-    const call = sdk.callConference(callSettings);
+    conf = sdk.callConference(callSettings);
 
 
-    call.addEventListener(VoxImplant.CallEvents.Connected, (e) => {
+    conf.addEventListener(VoxImplant.CallEvents.Connected, (e) => {
         sdk.showLocalVideo(true);
         document.getElementById("status").innerHTML = "The conference is active!";
+        document.getElementById("hangupbutton").style.display = "block";
     });
-    call.addEventListener(VoxImplant.CallEvents.Disconnected, (e) => {
+    conf.addEventListener(VoxImplant.CallEvents.Disconnected, (e) => {
         sdk.showLocalVideo(false);
         document.getElementById("status").innerHTML = "The conference ended!";
+        document.getElementById("hangupbutton").style.display = "none";
     });
 };
 
