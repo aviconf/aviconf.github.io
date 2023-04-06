@@ -10,7 +10,6 @@
     </head>
 <body>
     <p id="status">Please enter the username and password.</p>
-    <button onclick="call('hangup')" id="leavebutton" style="display: none;">Leave</button>
     <div id="loginform" style="display: block;">
         <input id="username" type="text">
         <input id="password" type="password">
@@ -60,9 +59,7 @@ const login = async () => {
     }
 };
 
-const call = (e) => {
-
-    if (e === 'hangup') { call.hangup() }
+const call = () => {
 
     // prepare settings
     const callSettings = {
@@ -80,14 +77,10 @@ const call = (e) => {
     call.addEventListener(VoxImplant.CallEvents.Connected, (e) => {
         sdk.showLocalVideo(true);
         document.getElementById("status").innerHTML = "The conference is active!";
-        document.getElementById("leavebutton").style.display = "block";
     });
     call.addEventListener(VoxImplant.CallEvents.Disconnected, (e) => {
         sdk.showLocalVideo(false);
         document.getElementById("status").innerHTML = "The conference ended!";
-        document.getElementById("leavebutton").style.display = "none";
-        sdk.disconnect();
-        document.getElementById("loginform").style.display = "block";
     });
 };
 
