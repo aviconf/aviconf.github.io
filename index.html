@@ -4,12 +4,27 @@
         <title>AviConf</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="https://unpkg.com/voximplant-websdk@beta"></script>
+        <style>
+            body {font-family: 'Courier New', Courier, monospace;}
+        </style>
     </head>
 <body>
-    <p id="status">This is the status bar.</p>
-    <input id="username" type="text">
-    <input id="password" type="password">
-    <button onclick="login()">Login</button>
+    <p id="status">Please enter the username and password.</p>
+    <form id="loginform" style="display: block;">
+        <input id="username" type="text">
+        <input id="password" type="password">
+        <button onclick="login()">Login</button>
+        <br>
+        <p>Hint! There are only three available users in the app right now:</p>
+        <ul>
+            <li>billgates / microsoft</li>
+            <li>stevejobs / appleinc</li>
+            <li>markzuckerberg / facebook</li>
+        </ul>
+    </form>
+    
+    <div id="remotevideo"></div>
+    <div id="localvideo"></div>
     
     <!-- <input id="number" type="text" value="iossdk">
     <br>
@@ -21,8 +36,7 @@
         <button id="decline">Decline</button>
     </div><br>
 
-    <div id="remotevideo" style="display: none; width: 640px; height: 480px;"></div>
-    <div id="localvideo" style="display: none; width: 640px; height: 480;"></div> -->
+     -->
 
     <script>
 
@@ -47,6 +61,7 @@ const login = async () => {
         try {   
             await sdk.login(document.getElementById("username").value+"@conftest.avicus.n4.voximplant.com",document.getElementById("password").value);
             document.getElementById("status").innerHTML = "Logged in!";
+            document.getElementById("loginform").style.display = "none";
         } catch (e) {
             document.getElementById("status").innerHTML = "Login failure!";
         }
@@ -55,7 +70,22 @@ const login = async () => {
     }
 };
 
+const startcall = () => {
+    // prepare settings
+    const callSettings = {
+        number: document.getElementById("number").value,
+        simulcast: true,
+        video: {
+            sendVideo: true,
+            receiveVideo: true
+        },
+    };
+    // pass these settings to the call() method
+    const call = sdk.callConference(callSettings);
+};
 
+
+sdk.showLocalVideo(true);
 
 // // make a call
 
