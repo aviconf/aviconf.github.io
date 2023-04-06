@@ -73,15 +73,17 @@ const startcall = () => {
     // pass these settings to the call() method
     const call = sdk.callConference(callSettings);
 
-    sdk.showLocalVideo(true);
 
     call.addEventListener(VoxImplant.CallEvents.Connected, (e) => {
+        sdk.showLocalVideo(true);
         document.getElementById("status").innerHTML = "The conference is active!";
         document.getElementById("leavebutton").onclick = call.hangup();
         document.getElementById("leavebutton").style.display = "block";
     });
-    call.addEventListener(VoxImplant.CallEvents.Connected, (e) => {
-        
+    call.addEventListener(VoxImplant.CallEvents.Disconnected, (e) => {
+        document.getElementById("leavebutton").style.display = "none";
+        sdk.disconnect();
+        document.getElementById("loginform").style.display = "block";
     });
 };
 
