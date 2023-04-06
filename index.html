@@ -80,7 +80,6 @@ const call = (e) => {
     call.addEventListener(VoxImplant.CallEvents.Connected, (e) => {
         sdk.showLocalVideo(true);
         document.getElementById("status").innerHTML = "The conference is active!";
-        document.getElementById("leavebutton").onclick = call.hangup();
         document.getElementById("leavebutton").style.display = "block";
     });
     call.addEventListener(VoxImplant.CallEvents.Disconnected, (e) => {
