@@ -22,21 +22,10 @@
             <li>markzuckerberg / facebook</li>
         </ul>
     </form>
+    <button id="startcall" style="display: none;" onclick="startcall()">Let me in!</button>
     
     <div id="remotevideo"></div>
     <div id="localvideo"></div>
-    
-    <!-- <input id="number" type="text" value="iossdk">
-    <br>
-    <button id="startcall" onclick="startcall()">Call</button> 
-    <button id="endcall" style="display: none;">End call</button>
-    <br>
-    <div id="incoming" style="display: none;">
-        <button id="answer">Answer</button>
-        <button id="decline">Decline</button>
-    </div><br>
-
-     -->
 
     <script>
 
@@ -73,7 +62,7 @@ const login = async () => {
 const startcall = () => {
     // prepare settings
     const callSettings = {
-        number: document.getElementById("number").value,
+        number: "aviconf",
         simulcast: true,
         video: {
             sendVideo: true,
@@ -82,10 +71,12 @@ const startcall = () => {
     };
     // pass these settings to the call() method
     const call = sdk.callConference(callSettings);
+
+    sdk.showLocalVideo(true);
 };
 
 
-sdk.showLocalVideo(true);
+
 
 // // make a call
 
