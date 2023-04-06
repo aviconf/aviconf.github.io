@@ -10,7 +10,7 @@
     </head>
 <body>
     <p id="status">Please enter the username and password.</p>
-    <button id="leavebutton" style="display: none;">Leave</button>
+    <button onclick="call('hangup')" id="leavebutton" style="display: none;">Leave</button>
     <div id="loginform" style="display: block;">
         <input id="username" type="text">
         <input id="password" type="password">
@@ -51,7 +51,7 @@ const login = async () => {
             await sdk.login(document.getElementById("username").value+"@conftest.avicus.n4.voximplant.com",document.getElementById("password").value);
             document.getElementById("status").innerHTML = "Logged in! Starting the conference...";
             document.getElementById("loginform").style.display = "none";
-            startcall();
+            call();
         } catch (e) {
             document.getElementById("status").innerHTML = "Login failure!";
         }
@@ -60,7 +60,10 @@ const login = async () => {
     }
 };
 
-const startcall = () => {
+const call = (e) => {
+
+    if (e === 'hangup') { call.hangup() }
+
     // prepare settings
     const callSettings = {
         number: "aviconf",
