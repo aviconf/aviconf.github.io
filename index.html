@@ -5,17 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="https://unpkg.com/voximplant-websdk@beta"></script>
         <style>
-            body {font-family: 'Courier New', Courier, monospace;}
+            body {
+                font-family: 'Courier New', Courier, monospace;
+                background-color: black;
+                color: lime
+            }
         </style>
     </head>
 <body>
-    <span id="status">Please enter the username and password.</span> 
+    <p id="status">Please enter the username and password.</p>
     <button onclick="conf.hangup()" id="hangupbutton" style="display: none;">Leave</button>
+    <br>
     <div id="loginform" style="display: block;">
         <input id="username" type="text">
         <input id="password" type="password">
         <button onclick="login()">Login</button>
-        <br>
+        <br><br>
         <p>Hint! There are only three available users in the app right now:</p>
         <ul>
             <li>billgates / microsoft</li>
@@ -81,12 +86,35 @@ const startconf = () => {
         sdk.showLocalVideo(true);
         document.getElementById("status").innerHTML = "The conference is active!";
         document.getElementById("hangupbutton").style.display = "block";
+
+        e.call.on(VoxImplant.CallEvents.EndpointAdded, (e) => {
+            // create a new video element
+            const tmpl = `<div id="${e.endpoint.id}"></div>`;
+            document.insertAdjacentHTML('beforeend', tmpl);
+
+            // subscribe to the remote media added event
+            e.endpoint.on(VoxImplant.EndpointEvents.RemoteMediaAdded, (e) => {
+                // point to the remote video container id
+                const container = document.getElementById('e.endpoint.id');
+                e.mediaRenderer.render(container);
+            });
+        });
     });
     conf.addEventListener(VoxImplant.CallEvents.Disconnected, (e) => {
         sdk.showLocalVideo(false);
         document.getElementById("status").innerHTML = "The conference ended!";
         document.getElementById("hangupbutton").style.display = "none";
     });
+
+    
+
+
+
+
+
+
+
+
 };
 
     </script>
