@@ -81,6 +81,8 @@ const startcall = () => {
         document.getElementById("leavebutton").style.display = "block";
     });
     call.addEventListener(VoxImplant.CallEvents.Disconnected, (e) => {
+        sdk.showLocalVideo(false);
+        document.getElementById("status").innerHTML = "The conference ended!";
         document.getElementById("leavebutton").style.display = "none";
         sdk.disconnect();
         document.getElementById("loginform").style.display = "block";
