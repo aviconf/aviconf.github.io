@@ -87,18 +87,18 @@ const startconf = () => {
         document.getElementById("status").innerHTML = "The conference is active!";
         document.getElementById("hangupbutton").style.display = "block";
 
-        e.call.on(VoxImplant.CallEvents.EndpointAdded, (e) => {
-            // create a new video element
-            const tmpl = `<div id="${e.endpoint.id}"></div>`;
-            document.insertAdjacentHTML('beforeend', tmpl);
+        // e.call.on(VoxImplant.CallEvents.EndpointAdded, (e) => {
+        //     // create a new video element
+        //     const tmpl = `<div id="${e.endpoint.id}"></div>`;
+        //     document.insertAdjacentHTML('beforeend', tmpl);
 
-            // subscribe to the remote media added event
-            e.endpoint.on(VoxImplant.EndpointEvents.RemoteMediaAdded, (e) => {
-                // point to the remote video container id
-                const container = document.getElementById('e.endpoint.id');
-                e.mediaRenderer.render(container);
-            });
-        });
+        //     // subscribe to the remote media added event
+        //     e.endpoint.on(VoxImplant.EndpointEvents.RemoteMediaAdded, (e) => {
+        //         // point to the remote video container id
+        //         const container = document.getElementById('e.endpoint.id');
+        //         e.mediaRenderer.render(container);
+        //     });
+        // });
     });
     conf.addEventListener(VoxImplant.CallEvents.Disconnected, (e) => {
         sdk.showLocalVideo(false);
