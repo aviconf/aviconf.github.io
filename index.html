@@ -112,7 +112,9 @@ const startconf = () => {
                 document.getElementById("status").innerHTML = "A new member joined!";
                 const tmpl = `<div class="col" id="${e.endpoint.id}"></div>`;
                 document.getElementById("remotevideo").insertAdjacentHTML('beforeend', tmpl);
+                document.getElementById(e.endpoint.id).style.width = "33%"
                 console.log(e);
+                console.log(e.endpoint);
 
                 // subscribe to the remote media added event
                 e.endpoint.on(VoxImplant.EndpointEvents.RemoteMediaAdded, (e) => {
