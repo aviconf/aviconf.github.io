@@ -130,7 +130,6 @@ const startconf = () => {
             e.call.on(VoxImplant.CallEvents.EndpointAdded, (e) => {
                 document.getElementById("status").innerHTML = "A new member joined!";
                 const tmpl = `<div class="col" id="${e.endpoint.id}"></div>`;
-                tmpl.style.width = "33%" // костыль сука
                 document.getElementById("remotevideo").insertAdjacentHTML('beforeend', tmpl);
                 updateMembers();
 
