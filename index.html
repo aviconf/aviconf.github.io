@@ -42,10 +42,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-5">
-                <br>
-                <div id="localvideo"></div>
-            </div>
+            <div class="col-5" id="localvideo"><br></div>
         </div>
     </div>
     <div class="container">
@@ -79,6 +76,8 @@ const login = async () => {
             startconf();
         } catch (e) {
             document.getElementById("status").innerHTML = "Login failure!";
+            document.getElementById("loginform").style.display = "none";
+            document.getElementById("reload").style.display = "block";
         }
     } catch (e) {
         document.getElementById("status").innerHTML = "SDK init failure!";
@@ -117,7 +116,6 @@ const startconf = () => {
                 // subscribe to the remote media added event
                 e.endpoint.on(VoxImplant.EndpointEvents.RemoteMediaAdded, (e) => {
                     const container = document.getElementById('e.endpoint.id');
-                    container.style.maxWidth = "100%";
                     e.mediaRenderer.render(container);
                 });
                 e.call.on(VoxImplant.CallEvents.EndpointRemoved, (e) => {
