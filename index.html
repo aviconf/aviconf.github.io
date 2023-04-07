@@ -41,6 +41,12 @@
                         <li>markzuckerberg / facebook</li>
                     </ul>
                 </div>
+                <div>
+                    <p>The conference members are:</p>
+                    <ul id="memberlist" style="display: none;">
+
+                    </ul>
+                </div>
             </div>
             <div class="col-4" id="localvideo"><br></div>
         </div>
@@ -107,30 +113,49 @@ const startconf = () => {
         sdk.showLocalVideo(true);
         document.getElementById("status").innerHTML = "The conference is active!";
         document.getElementById("hangupbutton").style.display = "block";
+        updateMembers();
 
             e.call.on(VoxImplant.CallEvents.EndpointAdded, (e) => {
                 document.getElementById("status").innerHTML = "A new member joined!";
                 const tmpl = `<div class="col" id="${e.endpoint.id}"></div>`;
                 tmpl.style.width = "33%" // костыль сука
                 document.getElementById("remotevideo").insertAdjacentHTML('beforeend', tmpl);
+                updateMembers();
 
                 // subscribe to the remote media added event
                 e.endpoint.on(VoxImplant.EndpointEvents.RemoteMediaAdded, (e) => {
                     const container = document.getElementById('e.endpoint.id');
                     e.mediaRenderer.render(container);
                 });
-                e.call.on(VoxImplant.CallEvents.EndpointRemoved, (e) => {
-                    document.getElementById("status").innerHTML = "A member left!";
-                });
+            });
+            e.call.on(VoxImplant.CallEvents.EndpointRemoved, (e) => {
+                document.getElementById("status").innerHTML = "A member left!";
+                updateMembers();
             });
     });
     conf.addEventListener(VoxImplant.CallEvents.Disconnected, (e) => {
         sdk.showLocalVideo(false);
         document.getElementById("status").innerHTML = "The conference ended!";
         document.getElementById("hangupbutton").style.display = "none";
+        document.getElementById("memberlist").style.display = "none";
         document.getElementById("reload").style.display = "block";
+        
     });
 };
+
+const updateMembers = () => {
+    const array = conf.getEndpoints();
+    if (array.length === 0) {
+        document.getElementById("memberlist").style.display = "none";
+    } else {
+        document.getElementById("memberlist").innerHTML = "";
+        array.forEach(e => {
+        const tmp = `<li>${e.displayName}</li>`;
+            document.getElementById("memberlist").insertAdjacentHTML('beforeend', tmp);
+        });
+        document.getElementById("memberlist").style.display = "block";
+    }
+}
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
