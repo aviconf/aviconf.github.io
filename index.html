@@ -19,6 +19,7 @@
             #voximplantlocalvideo {
                 width: 100%;
                 border-radius: 10px;
+                transform: scale(-1, 1);
             }
         </style>
     </head>
@@ -140,8 +141,9 @@ const startconf = () => {
 
             e.call.on(VoxImplant.CallEvents.EndpointAdded, (e) => {
                 document.getElementById("status").innerHTML = "A new member joined!";
-                const tmpl = `<div class="col" id="${e.endpoint.id}"></div>`;
-                document.getElementById("remotevideo").insertAdjacentHTML('beforeend', tmpl);
+                const container = document.createElement('div')
+                container.id = e.endpoint.id
+                document.getElementById("remotevideo").appendChild(container)
                 updateMembers();
 
                 // subscribe to the remote media added event
