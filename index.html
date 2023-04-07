@@ -41,6 +41,7 @@
                     <input class="form-control" id="password" type="password">
                     <br>
                     <button class="btn btn-outline-success" onclick="login()">Login</button>
+                    <button class="btn btn-outline-secondary" onclick="loginasguest()">Login as guest (for lazy people)</button>
                     <br><br>
                     <p>Hint! There are only three available users in the app right now:</p>
                     <ul>
@@ -92,6 +93,12 @@ const login = async () => {
         document.getElementById("loginform").style.display = "none";
         document.getElementById("reload").style.display = "block";
     }
+};
+
+const loginasguest = async () => {
+    document.getElementById("username").value = "guest";
+    document.getElementById("password").value = "guestuser";
+    login();
 };
 
 let conf;
