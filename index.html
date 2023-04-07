@@ -24,6 +24,10 @@
             <div class="col-8">
                 <br>
                 <p id="status">Please enter the username and password.</p>
+                <div id="members" style="display: none;">
+                    <p>The conference members are:</p>
+                    <ul id="memberlist"></ul>
+                </div>
                 <button class="btn btn-outline-danger" onclick="conf.hangup()" id="hangupbutton" style="display: none;">Leave</button>
                 <button class="btn btn-outline-success" onclick="location.reload()" id="reload" style="display: none;">Restart</button>
                 <div id="loginform" style="display: block;">
@@ -40,10 +44,6 @@
                         <li>stevejobs / appleinc</li>
                         <li>markzuckerberg / facebook</li>
                     </ul>
-                </div>
-                <div id="members" style="display: none;">
-                    <p>The conference members are:</p>
-                    <ul id="memberlist"></ul>
                 </div>
             </div>
             <div class="col-4" id="localvideo"><br></div>
@@ -91,6 +91,20 @@ const login = async () => {
 };
 
 let conf;
+
+const updateMembers = () => {
+    const array = conf.getEndpoints();
+    if (array.length === 0) {
+        document.getElementById("members").style.display = "none";
+    } else {
+        document.getElementById("memberlist").innerHTML = "";
+        array.forEach(e => {
+        const tmp = `<li>${e.displayName}</li>`;
+            document.getElementById("memberlist").insertAdjacentHTML('beforeend', tmp);
+        });
+        document.getElementById("members").style.display = "block";
+    }
+}
 
 const startconf = () => {
 
@@ -140,20 +154,6 @@ const startconf = () => {
         
     });
 };
-
-const updateMembers = () => {
-    const array = conf.getEndpoints();
-    if (array.length === 0) {
-        document.getElementById("members").style.display = "none";
-    } else {
-        document.getElementById("memberlist").innerHTML = "";
-        array.forEach(e => {
-        const tmp = `<li>${e.displayName}</li>`;
-            document.getElementById("memberlist").insertAdjacentHTML('beforeend', tmp);
-        });
-        document.getElementById("members").style.display = "block";
-    }
-}
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
