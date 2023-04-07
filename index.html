@@ -16,15 +16,18 @@
     </head>
 <body>
     <div class="container">
-        <div class="col">
-            <p id="status">Please enter the username and password.</p>
-            <button onclick="conf.hangup()" id="hangupbutton" style="display: none;">Leave</button>
-            <button onclick="location.reload()" id="reload" style="display: none;">Restart</button>
+        <div class="col-9">
             <br>
-            <div id="loginform" style="display: block;">
-                <input id="username" type="text">
-                <input id="password" type="password">
-                <button onclick="login()">Login</button>
+            <p id="status">Please enter the username and password.</p>
+            <button class="btn btn-outline-danger" onclick="conf.hangup()" id="hangupbutton" style="display: none;">Leave</button>
+            <button class="btn btn-outline-success" onclick="location.reload()" id="reload" style="display: none;">Restart</button>
+            <div id="loginform" style="display: block;" class="col-9">
+                Username:
+                <input class="form-control" id="username" type="text">
+                Password:
+                <input class="form-control" id="password" type="password">
+                <br>
+                <button class="btn btn-outline-success" onclick="login()">Login</button>
                 <br><br>
                 <p>Hint! There are only three available users in the app right now:</p>
                 <ul>
