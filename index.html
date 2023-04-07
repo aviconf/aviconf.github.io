@@ -42,8 +42,9 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-5" id="localvideo">
+            <div class="col-5">
                 <br>
+                <div id="localvideo"></div>
             </div>
         </div>
     </div>
@@ -111,7 +112,6 @@ const startconf = () => {
             e.call.on(VoxImplant.CallEvents.EndpointAdded, (e) => {
                 document.getElementById("status").innerHTML = "A new member joined!";
                 const tmpl = `<div class="col" id="${e.endpoint.id}"></div>`;
-                tmpl.style.maxWidth = "100%";
                 document.getElementById("remotevideo").insertAdjacentHTML('beforeend', tmpl);
 
                 // subscribe to the remote media added event
