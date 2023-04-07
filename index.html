@@ -41,11 +41,9 @@
                         <li>markzuckerberg / facebook</li>
                     </ul>
                 </div>
-                <div>
+                <div id="members" style="display: none;">
                     <p>The conference members are:</p>
-                    <ul id="memberlist" style="display: none;">
-
-                    </ul>
+                    <ul id="memberlist"></ul>
                 </div>
             </div>
             <div class="col-4" id="localvideo"><br></div>
@@ -146,14 +144,14 @@ const startconf = () => {
 const updateMembers = () => {
     const array = conf.getEndpoints();
     if (array.length === 0) {
-        document.getElementById("memberlist").style.display = "none";
+        document.getElementById("members").style.display = "none";
     } else {
         document.getElementById("memberlist").innerHTML = "";
         array.forEach(e => {
         const tmp = `<li>${e.displayName}</li>`;
             document.getElementById("memberlist").insertAdjacentHTML('beforeend', tmp);
         });
-        document.getElementById("memberlist").style.display = "block";
+        document.getElementById("members").style.display = "block";
     }
 }
 
