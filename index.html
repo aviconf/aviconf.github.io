@@ -12,35 +12,41 @@
                 background-color: black;
                 color: lime
             }
+            #voximplantlocalvideo {
+                max-width: 100%;
+                border-radius: 10px;
+            }
         </style>
     </head>
 <body>
     <div class="container">
-        <div class="col-9">
-            <br>
-            <p id="status">Please enter the username and password.</p>
-            <button class="btn btn-outline-danger" onclick="conf.hangup()" id="hangupbutton" style="display: none;">Leave</button>
-            <button class="btn btn-outline-success" onclick="location.reload()" id="reload" style="display: none;">Restart</button>
-            <div id="loginform" style="display: block;" class="col-9">
-                Username:
-                <input class="form-control" id="username" type="text">
-                Password:
-                <input class="form-control" id="password" type="password">
+        <div class="row">
+            <div class="col-7">
                 <br>
-                <button class="btn btn-outline-success" onclick="login()">Login</button>
-                <br><br>
-                <p>Hint! There are only three available users in the app right now:</p>
-                <ul>
-                    <li>billgates / microsoft</li>
-                    <li>stevejobs / appleinc</li>
-                    <li>markzuckerberg / facebook</li>
-                </ul>
+                <p id="status">Please enter the username and password.</p>
+                <button class="btn btn-outline-danger" onclick="conf.hangup()" id="hangupbutton" style="display: none;">Leave</button>
+                <button class="btn btn-outline-success" onclick="location.reload()" id="reload" style="display: none;">Restart</button>
+                <div id="loginform" style="display: block;">
+                    Username:
+                    <input class="form-control" id="username" type="text">
+                    Password:
+                    <input class="form-control" id="password" type="password">
+                    <br>
+                    <button class="btn btn-outline-success" onclick="login()">Login</button>
+                    <br><br>
+                    <p>Hint! There are only three available users in the app right now:</p>
+                    <ul>
+                        <li>billgates / microsoft</li>
+                        <li>stevejobs / appleinc</li>
+                        <li>markzuckerberg / facebook</li>
+                    </ul>
+                </div>
             </div>
+            <div class="col-5" id="localvideo"></div>
         </div>
-        <div class="col-3 rounded" id="localvideo"></div>
     </div>
     <div class="container" id="remotevideo">
-
+        <div class="row align-items-left"></div>
     </div>
     <script>
 
@@ -101,7 +107,8 @@ const startconf = () => {
 
             e.call.on(VoxImplant.CallEvents.EndpointAdded, (e) => {
                 document.getElementById("status").innerHTML = "A new member joined!";
-                const tmpl = `<div class="col rounded" id="${e.endpoint.id}"></div>`;
+                const tmpl = `<div class="col" id="${e.endpoint.id}"></div>`;
+                tmpl.style.maxWidth = "100%";
                 document.getElementById("remotevideo").insertAdjacentHTML('beforeend', tmpl);
 
                 // subscribe to the remote media added event
