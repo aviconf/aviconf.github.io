@@ -15,6 +15,7 @@
 <body>
     <p id="status">Please enter the username and password.</p>
     <button onclick="conf.hangup()" id="hangupbutton" style="display: none;">Leave</button>
+    <button onclick="location.reload()" id="reload" style="display: none;">Restart</button>
     <br>
     <div id="loginform" style="display: block;">
         <input id="username" type="text">
@@ -62,6 +63,8 @@ const login = async () => {
         }
     } catch (e) {
         document.getElementById("status").innerHTML = "SDK init failure!";
+        document.getElementById("loginform").style.display = "none";
+        document.getElementById("reload").style.display = "block";
     }
 };
 
@@ -90,7 +93,7 @@ const startconf = () => {
             e.call.on(VoxImplant.CallEvents.EndpointAdded, (e) => {
                 document.getElementById("status").innerHTML = "A new endpoint added!";
                 const tmpl = `<div id="${e.endpoint.id}"></div>`;
-                document.insertAdjacentHTML('beforeend', tmpl);
+                document.body.insertAdjacentHTML('beforeend', tmpl);
 
                 // subscribe to the remote media added event
                 e.endpoint.on(VoxImplant.EndpointEvents.RemoteMediaAdded, (e) => {
@@ -104,6 +107,7 @@ const startconf = () => {
         sdk.showLocalVideo(false);
         document.getElementById("status").innerHTML = "The conference ended!";
         document.getElementById("hangupbutton").style.display = "none";
+        document.getElementById("reload").style.display = "block";
     });
 
     
